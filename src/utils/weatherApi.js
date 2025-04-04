@@ -1,9 +1,11 @@
+const apiKey = "799993dcb8d17912ed8d77697b8f3bef";
+
 /**
  * 현재 위치를 가져오고, 실패 시 fallback 좌표 반환
  * @param {Function} onSuccess - 위치를 성공적으로 가져왔을 때 호출할 함수
  * @param {Function} onError - 위치를 가져오지 못했을 때 호출할 함수
  */
-export function getCurrentLocation(onSuccess, onError) {
+const getCurrentLocation = (onSuccess, onError) => {
   if (!navigator.geolocation) {
     alert("이 브라우저는 위치 정보를 지원하지 않습니다.");
     onError({
@@ -48,4 +50,25 @@ export function getCurrentLocation(onSuccess, onError) {
       });
     }
   );
-}
+};
+
+const getWeatherByCurrentLocation = async (lat, lon) => {
+  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=kr`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+
+    if (data.cod !== 200) {
+      throw new Error(`날씨 데이터 가져오기 실패: ${data.message}`);
+    }
+
+    console.log("🌤 날씨 정보:", data);
+    return data; // 필요한 경우 return
+  } catch (error) {
+    console.error("날씨 데이터 가져오기 실패:", error);
+    throw error;
+  }
+};
+
+export { getCurrentLocation, getWeatherByCurrentLocation };

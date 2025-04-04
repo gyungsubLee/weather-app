@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
-import { getCurrentLocation } from "./utils/getCurrentLocation";
+import {
+  getCurrentLocation,
+  getWeatherByCurrentLocation,
+} from "./utils/weatherApi";
 import "./App.css";
 
 // 1. 앱 마운트 시 현재 위치 기반 날씨 보여주기  -> useEffect
@@ -13,6 +16,13 @@ function App() {
     getCurrentLocation(
       ({ lat, lon }) => {
         console.log("받은 위치 좌표:", lat, lon);
+        getWeatherByCurrentLocation(lat, lon)
+          .then((data) => {
+            console.log("날씨 데이터:", data);
+          })
+          .catch((error) => {
+            console.error("날씨 데이터 가져오기 실패:", error);
+          });
       },
       ({ lat, lon, reason }) => {
         console.warn("기본 위치 사용 사유:", reason);
