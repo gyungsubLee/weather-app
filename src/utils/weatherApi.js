@@ -1,4 +1,4 @@
-const apiKey = "799993dcb8d17912ed8d77697b8f3bef";
+const apiKey = import.meta.env.VITE_OPENWEATHER_API_KEY;
 
 /**
  * 현재 위치를 가져오고, 실패 시 fallback 좌표 반환
@@ -48,6 +48,11 @@ const getCurrentLocation = (onSuccess, onError) => {
         lon: 126.978,
         reason: message,
       });
+    },
+    {
+      enableHighAccuracy: false, // true로 하면 더 정확하지만 느려짐
+      timeout: 5000, // 최대 5초 기다림
+      maximumAge: 60_000, // 1분 이내 캐시된 위치가 있으면 사용
     }
   );
 };
@@ -58,6 +63,7 @@ const getWeatherByCurrentLocation = async (lat, lon) => {
   try {
     const response = await fetch(url);
     const data = await response.json();
+    console.log(apiKey);
 
     if (data.cod !== 200) {
       throw new Error(`날씨 데이터 가져오기 실패: ${data.message}`);
