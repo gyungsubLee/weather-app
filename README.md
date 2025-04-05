@@ -16,7 +16,7 @@
 </div>
 
 <div align="center">
-  <img src="./img/weather.gif" width="500px"/>
+  <img src="./img/weather.gif" width="600px"/>
 </div>
 
 <br/>
