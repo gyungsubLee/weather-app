@@ -9,54 +9,92 @@ import WeatherBox from "./components/WeatherBox";
 import WeatherButton from "./components/WeatherButton";
 import "./App.css";
 
-// 1. 앱 마운트 시 현재 위치 기반 날씨 보여주기  -> useEffect
-// 2. 날씨 정보 = [ 도시, 섭씨,  화씨, 날씨 상태정보 ]
-// 3. 5개의 버튼 = 1: 현재 위치, 4: 다른 도시들
-// 4. 해당 도시 버튼 클릭 시, 해당 도시의 날씨 정보 보여주기
-// 5. 현재 위치 버튼 클릭시, 다시 현재 위치 기반의 날씨 보여주기
-// 6. 데이터를 들고 오는 동안 로딩 스피너가 돈다.
-function App() {
+const cities = [
+  { name: "서울", lat: 37.5665, lon: 126.978 },
+  { name: "부산", lat: 35.1796, lon: 129.0756 },
+  { name: "대구", lat: 35.8714, lon: 128.6014 },
+  { name: "인천", lat: 37.4563, lon: 126.7052 },
+  { name: "광주", lat: 35.1595, lon: 126.8526 },
+];
+
+const App = () => {
   const [weatherData, setWeatherData] = useState(null);
-  useEffect(() => {
+  const [loading, setLoading] = useState(false);
+
+  const handleGetWeatherByCity = async (lat, lon) => {
+    setLoading(true);
+    try {
+      const data = await getWeatherByCurrentLocation(lat, lon);
+      setWeatherData(data);
+    } catch (err) {
+      console.error("날씨 가져오기 실패:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGetWeather = () => {
+    setLoading(true);
     getCurrentLocation(
-      ({ lat, lon }) => {
-        console.log("받은 위치 좌표:", lat, lon);
-        getWeatherByCurrentLocation(lat, lon)
-          .then((data) => {
-            console.log("날씨 데이터:", data);
-            setWeatherData(data);
-          })
-          .catch((error) => {
-            console.error("날씨 데이터 가져오기 실패:", error);
-          });
+      async ({ lat, lon }) => {
+        try {
+          const data = await getWeatherByCurrentLocation(lat, lon);
+          setWeatherData(data);
+        } catch (err) {
+          console.error("날씨 가져오기 실패:", err);
+        } finally {
+          setLoading(false);
+        }
       },
-      ({ lat, lon, reason }) => {
-        console.warn("기본 위치 사용 사유:", reason);
-        console.log("기본 위치 좌표:", lat, lon);
+      async ({ lat, lon, reason }) => {
+        console.warn("기본 위치로 대체:", reason);
+        try {
+          const data = await getWeatherByCurrentLocation(lat, lon);
+          setWeatherData(data);
+        } catch (err) {
+          console.error("fallback 날씨 실패:", err);
+        } finally {
+          setLoading(false);
+        }
       }
     );
-  }, []);
+  };
 
   return (
-    <BoxWrapper>
-      <WeatherBox weatherData={weatherData} />
-      <ButtonWrapper>
-        <WeatherButton>서울</WeatherButton>
-        <WeatherButton>부산</WeatherButton>
-        <WeatherButton>대구</WeatherButton>
-        <WeatherButton>인천</WeatherButton>
-        <WeatherButton>부평</WeatherButton>
-      </ButtonWrapper>
-    </BoxWrapper>
+    <>
+      <Title>날씨 앱</Title>
+      <BoxWrapper>
+        <button onClick={handleGetWeather}>현재 위치 날씨 보기</button>
+        <WeatherBoxWrapper>
+          {!weatherData && !loading && <p>버튼을 눌러주세요</p>}
+          {loading && <p>로딩 중...</p>}
+          {!loading && weatherData && <WeatherBox weatherData={weatherData} />}
+        </WeatherBoxWrapper>
+        <ButtonWrapper>
+          <WeatherButton
+            cities={cities}
+            handleGetWeatherByCity={handleGetWeatherByCity}
+          />
+        </ButtonWrapper>
+      </BoxWrapper>
+    </>
   );
-}
+};
+
+const Title = styled.h1`
+  text-align: center;
+  margin: 20px 0;
+  color: #333;
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 700;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+`;
 
 const BoxWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
   width: 100vw;
 `;
 
@@ -65,6 +103,21 @@ const ButtonWrapper = styled.div`
   align-items: center;
   justify-content: space-around;
   width: 500px;
+`;
+
+const WeatherBoxWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 500px;
+  height: 200px;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: #333;
+  margin: 10px 0;
 `;
 
 export default App;
