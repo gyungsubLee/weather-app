@@ -9,6 +9,7 @@ import Button from "react-bootstrap/Button";
 
 import WeatherBox from "./components/WeatherBox";
 import WeatherButton from "./components/WeatherButton";
+import Loading from "./components/Loading";
 import "./App.css";
 
 const cities = [
@@ -68,7 +69,7 @@ const App = () => {
       <Button onClick={handleCurrentWeather}>현재 위치 날씨 보기</Button>
       <WeatherBoxWrapper>
         {!weatherData && !loading && <p>버튼을 눌러주세요</p>}
-        {loading && <p>로딩 중...</p>}
+        {loading && <Loading />}
         {!loading && weatherData && <WeatherBox weatherData={weatherData} />}
       </WeatherBoxWrapper>
       <ButtonWrapper>
