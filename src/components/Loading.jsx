@@ -73,7 +73,7 @@ const Drop = styled.span`
   height: 10px;
   margin-left: 4px;
   border-radius: 0 0 6px 6px;
-  background: #9ea1a4;
+  background: #fff;
   opacity: 1;
 
   animation: ${rainAnimation} 350ms infinite;
@@ -88,7 +88,7 @@ const Text = styled.div`
   font-weight: bold;
   margin-top: 20px;
   font-size: 11px;
-  color: #a0a0a0;
+  color: var(--font-color-light);
   width: 200px;
 `;
 

@@ -5,11 +5,12 @@ import {
   getWeatherByCurrentLocation,
 } from "./utils/weatherApi";
 
-import Button from "react-bootstrap/Button";
+import Button from "./components/Button";
 
 import WeatherBox from "./components/WeatherBox";
 import WeatherButton from "./components/WeatherButton";
 import Loading from "./components/Loading";
+import TimeBox from "./components/TimeBox";
 import "./App.css";
 
 const cities = [
@@ -68,6 +69,7 @@ const App = () => {
       <Title>날씨 정보</Title>
       <Button onClick={handleCurrentWeather}>현재 위치 날씨 보기</Button>
       <WeatherBoxWrapper>
+        <TimeBox></TimeBox>
         {!weatherData && !loading && <p>버튼을 눌러주세요</p>}
         {loading && <Loading />}
         {!loading && weatherData && <WeatherBox weatherData={weatherData} />}
@@ -87,7 +89,7 @@ const Title = styled.h1`
   margin: 0 0 20px 0;
   font-family: "Noto Sans KR", sans-serif;
   font-weight: 700;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 `;
 
 const BoxWrapper = styled.div`
@@ -109,7 +111,6 @@ const ButtonWrapper = styled.div`
   backdrop-filter: blur(10px);
   border-radius: 10px;
   padding: 10px;
-  margin: 10px 0;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 `;
 
@@ -120,12 +121,23 @@ const WeatherBoxWrapper = styled.div`
   justify-content: center;
   width: 500px;
   height: 200px;
-  background-color: #fff;
+  background-image: var(--gradient-transparent),
+    url("https://images.unsplash.com/photo-1559963110-71b394e7494d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   border-radius: 10px;
   padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  color: #333;
-  margin: 10px 0;
+  color: var(--font-color-light);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin: 20px 0;
+  transition: transform 300ms ease;
+  transform: translateZ(0) scale(1.02) perspective(1000px);
+  float: left;
+
+  &: hover {
+    transform: scale(1.1) perspective(1000px) rotateX(-5deg);
+  }
 `;
 
 export default App;

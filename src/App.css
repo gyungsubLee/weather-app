@@ -2,8 +2,12 @@
 
 :root {
   --gradient: linear-gradient(135deg, #72edf2 10%, #5151e5 100%);
+  --gradient-transparent: linear-gradient(
+    135deg,
+    rgba(114, 237, 242, 0.6) 10%,
+    rgba(81, 81, 229, 0.6) 100%
+  );
   --font-color-light: #fff;
-  --font-color-dark: #000;
 }
 
 * {
@@ -20,9 +24,5 @@ body,
   height: 100%;
   margin: 0;
   color: var(--font-color-light);
-  background-color: #343d4b; /* 💡 여기 같이 줘보세요 */
+  background: linear-gradient(135deg, #3a506b, #8d99ae);
 }
-
-/* background: url(https://images.twinkl.co.uk/tw1n/image/private/t_630/u/ux/wolfgang-hasselmann-br-gllg7bs-unsplash-2_ver_1.jpg);
-  background-size: cover;
-  background-repeat: no-repeat; */
