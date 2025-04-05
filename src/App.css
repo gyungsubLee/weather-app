@@ -1,8 +1,28 @@
-body {
-  background: url(https://images.twinkl.co.uk/tw1n/image/private/t_630/u/ux/wolfgang-hasselmann-br-gllg7bs-unsplash-2_ver_1.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  margin: 0;
-  height: 100vh;
-  width: 100vw;
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,700,900&display=swap");
+
+:root {
+  --gradient: linear-gradient(135deg, #72edf2 10%, #5151e5 100%);
+  --font-color-light: #fff;
+  --font-color-dark: #000;
 }
+
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  line-height: 1.25em;
+}
+
+html,
+body,
+#root {
+  height: 100vh;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  color: var(--font-color-light);
+  background-color: #343d4b; /* 💡 여기 같이 줘보세요 */
+}
+
+/* background: url(https://images.twinkl.co.uk/tw1n/image/private/t_630/u/ux/wolfgang-hasselmann-br-gllg7bs-unsplash-2_ver_1.jpg);
+  background-size: cover;
+  background-repeat: no-repeat; */

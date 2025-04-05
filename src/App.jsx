@@ -5,6 +5,8 @@ import {
   getWeatherByCurrentLocation,
 } from "./utils/weatherApi";
 
+import Button from "react-bootstrap/Button";
+
 import WeatherBox from "./components/WeatherBox";
 import WeatherButton from "./components/WeatherButton";
 import "./App.css";
@@ -33,7 +35,7 @@ const App = () => {
     }
   };
 
-  const handleGetWeather = () => {
+  const handleCurrentWeather = () => {
     setLoading(true);
     getCurrentLocation(
       async ({ lat, lon }) => {
@@ -61,30 +63,27 @@ const App = () => {
   };
 
   return (
-    <>
-      <Title>날씨 앱</Title>
-      <BoxWrapper>
-        <button onClick={handleGetWeather}>현재 위치 날씨 보기</button>
-        <WeatherBoxWrapper>
-          {!weatherData && !loading && <p>버튼을 눌러주세요</p>}
-          {loading && <p>로딩 중...</p>}
-          {!loading && weatherData && <WeatherBox weatherData={weatherData} />}
-        </WeatherBoxWrapper>
-        <ButtonWrapper>
-          <WeatherButton
-            cities={cities}
-            handleGetWeatherByCity={handleGetWeatherByCity}
-          />
-        </ButtonWrapper>
-      </BoxWrapper>
-    </>
+    <BoxWrapper>
+      <Title>날씨 정보</Title>
+      <Button onClick={handleCurrentWeather}>현재 위치 날씨 보기</Button>
+      <WeatherBoxWrapper>
+        {!weatherData && !loading && <p>버튼을 눌러주세요</p>}
+        {loading && <p>로딩 중...</p>}
+        {!loading && weatherData && <WeatherBox weatherData={weatherData} />}
+      </WeatherBoxWrapper>
+      <ButtonWrapper>
+        <WeatherButton
+          cities={cities}
+          handleGetWeatherByCity={handleGetWeatherByCity}
+        />
+      </ButtonWrapper>
+    </BoxWrapper>
   );
 };
 
 const Title = styled.h1`
   text-align: center;
-  margin: 20px 0;
-  color: #333;
+  margin: 0 0 20px 0;
   font-family: "Noto Sans KR", sans-serif;
   font-weight: 700;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
@@ -96,6 +95,7 @@ const BoxWrapper = styled.div`
   align-items: center;
   justify-content: center;
   width: 100vw;
+  height: 100vh;
 `;
 
 const ButtonWrapper = styled.div`
@@ -103,6 +103,13 @@ const ButtonWrapper = styled.div`
   align-items: center;
   justify-content: space-around;
   width: 500px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 `;
 
 const WeatherBoxWrapper = styled.div`
