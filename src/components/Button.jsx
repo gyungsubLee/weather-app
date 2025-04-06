@@ -18,6 +18,7 @@ const FancyButton = styled.button`
   background: transparent;
   z-index: 0;
   backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 
   &::before {
     content: "";
@@ -67,12 +68,17 @@ const FancyButton = styled.button`
     box-shadow: 0 4px 10px rgba(81, 81, 229, 0.2);
   }
   ${media.mobile`
-    padding: 0.8rem 1.5rem;
-    font-size: 0.875rem;
-    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 15%;
+    margin: 2px 0;
+    font-size: 0.7rem;
+    border-radius: 5px;
 
     &:hover {
-      font-size: 0.9rem;
+      font-size: 0.7rem;
     }
   `}
 `;

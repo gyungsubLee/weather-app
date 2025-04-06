@@ -66,29 +66,30 @@ const App = () => {
 
   return (
     <BoxWrapper>
-      <CurrentButtonWrapper>
-        <Title>날씨 정보</Title>
-        <Button onClick={handleCurrentWeather}>현재 위치 날씨 보기</Button>
-      </CurrentButtonWrapper>
-      <WeatherBoxWrapper>
-        <TimeBox></TimeBox>
-        {!weatherData && !loading && <p>버튼을 눌러주세요</p>}
-        {loading && <Loading />}
-        {!loading && weatherData && <WeatherBox weatherData={weatherData} />}
-      </WeatherBoxWrapper>
-      <ButtonWrapper>
-        <WeatherButton
-          cities={cities}
-          handleGetWeatherByCity={handleGetWeatherByCity}
-        />
-      </ButtonWrapper>
+      <SubBoxWrapper>
+        <CurrentButtonWrapper>
+          <Title>날씨 정보</Title>
+          <Button onClick={handleCurrentWeather}>현재 위치 날씨 보기</Button>
+        </CurrentButtonWrapper>
+        <WeatherBoxWrapper>
+          <TimeBox></TimeBox>
+          {!weatherData && !loading && <p>버튼을 눌러주세요</p>}
+          {loading && <Loading />}
+          {!loading && weatherData && <WeatherBox weatherData={weatherData} />}
+        </WeatherBoxWrapper>
+        <ButtonWrapper>
+          <WeatherButton
+            cities={cities}
+            handleGetWeatherByCity={handleGetWeatherByCity}
+          />
+        </ButtonWrapper>
+      </SubBoxWrapper>
     </BoxWrapper>
   );
 };
 
 const Title = styled.h1`
   text-align: center;
-  margin: 0 0 20px 0;
   font-family: "Noto Sans KR", sans-serif;
   font-weight: 700;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
@@ -96,11 +97,20 @@ const Title = styled.h1`
 
 const BoxWrapper = styled.div`
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100vh;
+`;
+
+const SubBoxWrapper = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 500px;
   ${media.mobile`
     display: flex;
     flex-direction: row;
@@ -112,11 +122,10 @@ const BoxWrapper = styled.div`
 
 const CurrentButtonWrapper = styled.div`
   position: absolute;
-  top: 27%;
-
+  top: 0px;
   ${media.mobile`
-  top: 21%;
-  `}
+  top: 0px;
+  `};
 `;
 
 const WeatherBoxWrapper = styled.div`
@@ -146,7 +155,7 @@ const WeatherBoxWrapper = styled.div`
 
   ${media.mobile`
     width: 70%;
-    height: 400px;
+    height: 55%;
     margin: 40px auto;
   `}
 `;
@@ -166,7 +175,7 @@ const ButtonWrapper = styled.div`
   ${media.mobile`
     flex-direction: column;
     width: 18%;
-    height: 400px;
+    height: 55%;
     margin: 0 auto;
   `}
 `;

@@ -31,7 +31,7 @@ const Box = styled.div`
   color: white;
   ${media.mobile`
     flex-direction: column;
-    padding:20px 30px;
+    padding:5px 15px;
     gap: 10px;
   `}
 `;
