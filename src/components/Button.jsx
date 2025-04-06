@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { media } from "../styles/responsive";
 
 const Button = ({ onClick, children }) => {
   return <FancyButton onClick={onClick}>{children}</FancyButton>;
@@ -65,6 +66,15 @@ const FancyButton = styled.button`
     transform: scale(0.97);
     box-shadow: 0 4px 10px rgba(81, 81, 229, 0.2);
   }
+  ${media.mobile`
+    padding: 0.8rem 1.5rem;
+    font-size: 0.875rem;
+    border-radius: 4px;
+
+    &:hover {
+      font-size: 0.9rem;
+    }
+  `}
 `;
 
 export default Button;

@@ -40,14 +40,14 @@ const TopRight = styled.div`
 const DayText = styled.p`
   font-size: 1rem;
   font-weight: 700;
-  color: #dddddd;
+  color: var(--font-color-ligh);
   margin: 0;
   text-transform: capitalize;
 `;
 
 const TimeText = styled.p`
   font-size: 0.85rem;
-  color: #dddddd;
+  color: var(--font-color-ligh);
   margin: 0;
 `;
 

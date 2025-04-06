@@ -5,8 +5,8 @@ import {
   getWeatherByCurrentLocation,
 } from "./utils/weatherApi";
 
+import { media } from "./styles/responsive";
 import Button from "./components/Button";
-
 import WeatherBox from "./components/WeatherBox";
 import WeatherButton from "./components/WeatherButton";
 import Loading from "./components/Loading";
@@ -66,8 +66,10 @@ const App = () => {
 
   return (
     <BoxWrapper>
-      <Title>날씨 정보</Title>
-      <Button onClick={handleCurrentWeather}>현재 위치 날씨 보기</Button>
+      <CurrentButtonWrapper>
+        <Title>날씨 정보</Title>
+        <Button onClick={handleCurrentWeather}>현재 위치 날씨 보기</Button>
+      </CurrentButtonWrapper>
       <WeatherBoxWrapper>
         <TimeBox></TimeBox>
         {!weatherData && !loading && <p>버튼을 눌러주세요</p>}
@@ -97,21 +99,24 @@ const BoxWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
+  ${media.mobile`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  `}
 `;
 
-const ButtonWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  width: 500px;
-  background-color: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(10px);
-  border-radius: 10px;
-  padding: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+const CurrentButtonWrapper = styled.div`
+  position: absolute;
+  top: 27%;
+
+  ${media.mobile`
+  top: 21%;
+  `}
 `;
 
 const WeatherBoxWrapper = styled.div`
@@ -138,6 +143,32 @@ const WeatherBoxWrapper = styled.div`
   &: hover {
     transform: scale(1.1) perspective(1000px) rotateX(-5deg);
   }
+
+  ${media.mobile`
+    width: 70%;
+    height: 400px;
+    margin: 40px auto;
+  `}
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 500px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+
+  ${media.mobile`
+    flex-direction: column;
+    width: 18%;
+    height: 400px;
+    margin: 0 auto;
+  `}
 `;
 
 export default App;

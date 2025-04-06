@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { media } from "../styles/responsive";
 
 const WeatherBox = ({ weatherData }) => {
   const { name, main, weather } = weatherData;
@@ -29,6 +29,11 @@ const Box = styled.div`
   padding: 15px 25px;
   gap: 20px;
   color: white;
+  ${media.mobile`
+    flex-direction: column;
+    padding:20px 30px;
+    gap: 10px;
+  `}
 `;
 
 const Left = styled.div`
